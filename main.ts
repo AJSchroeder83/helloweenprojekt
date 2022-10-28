@@ -1,7 +1,12 @@
 function song () {
-    for (let index = 0; index <= Song_1.length; index++) {
+    while (index <= Song_1.length) {
         music.playTone(Song_1[index], music.beat(BeatFraction.Half))
         basic.pause(10)
+        index += 1
+        if (index == Song_1.length) {
+            basic.pause(10000)
+            index = 0
+        }
     }
 }
 function candle () {
@@ -11,7 +16,7 @@ function candle () {
     basic.pause(randint(0, 41) + 80)
 }
 function eyes () {
-    for (let index1 = 0; index1 <= eye_colors.length - 1; index1++) {
+    while (index1 <= eye_colors.length - 1) {
         for (let index22 = 0; index22 <= 255; index22++) {
             eye_strip.setBrightness(index22)
             eye_strip.showColor(eye_colors[index1])
@@ -22,9 +27,15 @@ function eyes () {
             eye_strip.showColor(eye_colors[index1])
             basic.pause(5)
         }
+        index1 += 1
+        if (index1 == 5) {
+            index1 = 0
+        }
     }
 }
+let index1 = 0
 let current_candle_strip: neopixel.Strip = null
+let index = 0
 let Song_1: number[] = []
 let rest_of_candle: neopixel.Strip = null
 let eye_colors: number[] = []
@@ -352,11 +363,11 @@ g5,
 b4
 ]
 basic.forever(function () {
+    candle()
+})
+basic.forever(function () {
     eyes()
 })
 basic.forever(function () {
     song()
-})
-basic.forever(function () {
-    candle()
 })
